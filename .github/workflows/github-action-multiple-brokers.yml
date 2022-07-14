@@ -13,10 +13,6 @@ jobs:
         run: docker-compose -f zk-single-kafka-multiple.yml up -d
       - name: Check if containers are up
         run: docker ps
-      - name: List topics
-        run: docker exec kafka1 kafka-topics --bootstrap-server localhost:9092 --list
-      - name: Describe the topic
-        run: docker exec kafka1 kafka-topics --bootstrap-server localhost:9092 --describe --topic events
       - name: Check go version
         run: go version      
       - name: Run test
