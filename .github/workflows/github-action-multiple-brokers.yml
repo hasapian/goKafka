@@ -11,6 +11,8 @@ jobs:
         run: docker ps -a
       - name: Docker compose up
         run: docker-compose -f zk-single-kafka-multiple.yml up -d
+      - name: Sleep for 10 seconds
+        run: sleep 10s
       - name: Check if containers are up
         run: docker ps
       - name: Check go version
