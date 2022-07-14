@@ -9,14 +9,14 @@ import (
 	"github.com/segmentio/kafka-go"
 )
 
-func produce(ctx context.Context, brokerAddress, topic, messageValue string, numberOfMessagesToProduce int) {
+func produce(ctx context.Context, brokerAddresses []string, topic, messageValue string, numberOfMessagesToProduce int, numberOfExtraMessagesToStop int) {
 	// initialize a counter
 	messagesProduced := 0
 
 	//l := log.New(os.Stdout, "kafka writer: ", 0)
 	// intialize the writer with the broker addresses, and the topic
 	kafkaWriter := kafka.NewWriter(kafka.WriterConfig{
-		Brokers: []string{brokerAddress},
+		Brokers: brokerAddresses,
 		Topic:   topic,
 		// assign the logger to the writer
 		//Logger: l,
@@ -42,12 +42,15 @@ func produce(ctx context.Context, brokerAddress, topic, messageValue string, num
 		time.Sleep(time.Second)
 	}
 
-	err := kafkaWriter.WriteMessages(ctx, kafka.Message{
-		Key: []byte(strconv.Itoa(messagesProduced)),
-		// create an arbitrary message payload for the value
-		Value: []byte("stop"),
-	})
-	if err != nil {
-		panic("could not write message " + err.Error())
+	for messagesProduced < numberOfMessagesToProduce+numberOfExtraMessagesToStop {
+		err := kafkaWriter.WriteMessages(ctx, kafka.Message{
+			Key: []byte(strconv.Itoa(messagesProduced)),
+			// create an arbitrary message payload for the value
+			Value: []byte("stop"),
+		})
+		if err != nil {
+			panic("could not write message " + err.Error())
+		}
+		messagesProduced++
 	}
 }
