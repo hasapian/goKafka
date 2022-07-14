@@ -11,12 +11,8 @@ jobs:
         run: docker ps -a
       - name: Docker compose up
         run: docker-compose -f zk-single-kafka-multiple.yml up -d
-      - name: Wait 10 seconds for containers
-        run: sleep 10s
       - name: Check if containers are up
         run: docker ps
-      - name: Create a topic 
-        run: docker exec -it kafka1 kafka-topics --bootstrap-server localhost:9092 --topic events --create --partitions 3 --replication-factor 3
       - name: List topics
         run: docker exec -it kafka1 kafka-topics --bootstrap-server localhost:9092 --list
       - name: Describe the topic
