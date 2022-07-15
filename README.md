@@ -21,6 +21,13 @@ Each kafka message has a key and value. The key is used to decide which partitio
 
 A specified number of events is created, which are consumed by a single consumer. The consumer stops when a message with value **stop** is received.
 
+## GitHub Actions Kafka Single Broker
+The workflow for the single broker has the following steps:
+- Check out repository
+- Pull images for broker and zookeeper via docker compose and start containers
+- Create the necessary topic to use during tests
+- Run test for single broker
+
 ## Steps to run locally
 1. Clone repository: `git clone https://github.com/hasapian/goKafka.git`
 2. Create Zookeeper and Kafka containers with docker compose (install if needed following [this](https://docs.docker.com/compose/install/) manual): `docker compose up -d`
@@ -32,6 +39,13 @@ A specified number of events is created, which are consumed by a single consumer
 - Github action yaml: *github-action-multiple-brokers*. 
 - For the Zookeeper-Kafka setup the file [zk-single-kafka-multiple.yml](https://github.com/conduktor/kafka-stack-docker-compose) is used . 
 
+## GitHub Actions Kafka Multiple Brokers
+
+The workflow for the multiple brokers has the following steps:
+- Check out repository
+- Pull images for brokers and zookeeper via docker compose and start containers
+- Add some delay for brokers and zookeeper to be ready 
+- Run test for multiple brokers
 
 ## Steps to run locally
 1. Clone repository: `git clone https://github.com/hasapian/goKafka.git`
