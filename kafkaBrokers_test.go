@@ -17,7 +17,7 @@ const (
 	broker1Address    = "localhost:9092"
 	broker2Address    = "localhost:9093"
 	broker3Address    = "localhost:9094"
-	EVENTS_TO_PRODUCE = 5
+	EVENTS_TO_PRODUCE = 10
 	MESSAGE_DATA      = "this is event "
 )
 
@@ -99,7 +99,6 @@ func TestMultipleBrokers(t *testing.T) {
 	allMessages := make(map[string]string)
 
 	for k := 0; k < 3; k++ {
-		close(channels[k])
 		for finalKey, finalValue := range consumerMessages[k] {
 			allMessages[finalKey] = finalValue
 		}

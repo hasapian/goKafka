@@ -13,11 +13,9 @@ func produce(ctx context.Context, brokerAddresses []string, topic, messageValue 
 
 	messagesProduced := 0
 
-	//l := log.New(os.Stdout, "kafka writer: ", 0)
 	kafkaWriter := kafka.NewWriter(kafka.WriterConfig{
 		Brokers: brokerAddresses,
 		Topic:   topic,
-		//Logger: l,
 	})
 
 	for messagesProduced < numberOfMessagesToProduce {

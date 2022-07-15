@@ -37,7 +37,7 @@ The workflow for the single broker has the following steps:
 # Test Kafka with Multiple Brokers
 *TestMultipleBrokers* is a TC for Kafka with **3 brokers, 3 partitions and replication factor 3** (transaction.state.log.min.isr has the default value: 2). In this test case, the topic (*events*) is created during the execution, using the [kafka-go](https://github.com/segmentio/kafka-go) library. 3 goroutines are created for the 3 consumers, each of which stops when a message with value **stop** is received.
 - Github action yaml: *github-action-multiple-brokers*. 
-- For the Zookeeper-Kafka setup the file [zk-single-kafka-multiple.yml](https://github.com/conduktor/kafka-stack-docker-compose) is used . 
+- For the Zookeeper-Kafka setup the file [zk-single-kafka-multiple.yml](https://github.com/conduktor/kafka-stack-docker-compose) is used. 
 
 ## GitHub Actions Kafka Multiple Brokers
 

@@ -12,12 +12,10 @@ import (
 
 func consume(ctx context.Context, brokerAddresses []string, topic, messageValue string, numberOfMessagesToConsume int, t *testing.T) map[string]string {
 
-	//l := log.New(os.Stdout, "kafka reader: ", 0)
 	r := kafka.NewReader(kafka.ReaderConfig{
 		Brokers: brokerAddresses,
 		Topic:   topic,
 		GroupID: "my-group",
-		//Logger: l,
 	})
 
 	result := make(map[string]string)
@@ -47,12 +45,10 @@ func consumeMultiple(wg *sync.WaitGroup, ctx context.Context, brokerAddresses []
 
 	fmt.Printf("Consumer %v: Started\n", consumerId)
 
-	//l := log.New(os.Stdout, "kafka reader: ", 0)
 	r := kafka.NewReader(kafka.ReaderConfig{
 		Brokers: brokerAddresses,
 		Topic:   topic,
 		GroupID: "my-group",
-		//Logger: l,
 	})
 
 	tempResult := make(map[string]string)
@@ -81,5 +77,6 @@ func consumeMultiple(wg *sync.WaitGroup, ctx context.Context, brokerAddresses []
 	fmt.Println(tempResult)
 
 	result <- tempResult
+	close(result)
 	return
 }
