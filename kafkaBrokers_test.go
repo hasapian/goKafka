@@ -22,11 +22,8 @@ const (
 )
 
 func TestSingleBroker(t *testing.T) {
-	// create a new context
+
 	ctx := context.Background()
-	// produce messages in a new go routine, since
-	// both the produce and consume functions are
-	// blocking
 
 	brokerAddresses := []string{broker1Address}
 
@@ -42,7 +39,7 @@ func TestSingleBroker(t *testing.T) {
 }
 
 func TestMultipleBrokers(t *testing.T) {
-	// create a new context
+
 	ctx := context.Background()
 
 	var wg sync.WaitGroup
@@ -84,9 +81,6 @@ func TestMultipleBrokers(t *testing.T) {
 		channels[x] = make(chan map[string]string)
 	}
 
-	// produce messages in a new go routine, since
-	// both the produce and consume functions are
-	// blocking
 	go produce(ctx, brokerAddresses, topic, MESSAGE_DATA, EVENTS_TO_PRODUCE, len(brokerAddresses))
 
 	for consumerId := 0; consumerId < 3; consumerId++ {

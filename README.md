@@ -6,6 +6,13 @@ Kafka testing in Go for single and multiple brokers. The main concept of the imp
 - Docker compose for multiple brokers: [kafka-stack-docker-compose](https://github.com/conduktor/kafka-stack-docker-compose)
 - The [require](https://pkg.go.dev/github.com/stretchr/testify) package was used for the assertions of the tests
 
+Each kafka message has a key and value. The key is used to decide which partition (and consequently, which broker) the message gets published on. When all the messages are produced, an extra message (or 3 if there are 3 partitions) with value **stop** is produced to stop the consumer(s).
+| Key | Value            |
+| --- | ---------------- |
+| 0   | this is event 0  |
+| 1   | this is event 1  |
+| 2   | this is event 2  |
+| 3   | stop             |
 
 # Test Kafka with Single Broker
 *TestSingleBroker* is a test case for Kafka with **one broker and one partition**. The gihub action yaml file for this test is *github-action-single-broker*, in which the containers and the topic are created. The [confluentinc](https://hub.docker.com/u/confluentinc) images are used for the [zookeeper](https://hub.docker.com/r/confluentinc/cp-zookeeper) and the [kafka](https://hub.docker.com/r/confluentinc/cp-kafka) broker. The topic is created with the command
